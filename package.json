@@ -1,6 +1,6 @@
 {
     "name": "ngx-raven-interceptor",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Angular 4.3.0+ Http Error Interceptor for Sentry",
     "repository": "https://github.com/mkrawiec/ngx-raven-interceptor",
     "main": "index.js",
