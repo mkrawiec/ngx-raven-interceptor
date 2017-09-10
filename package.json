@@ -1,0 +1,21 @@
+{
+    "name": "ngx-raven-interceptor",
+    "version": "1.0.0",
+    "description": "Angular 4.3.0+ Http Error Interceptor for Sentry",
+    "repository": "https://github.com/mkrawiec/ngx-raven-interceptor",
+    "main": "index.js",
+    "keywords": [
+        "angular4",
+        "sentry",
+        "raven",
+        "interceptor"
+    ],
+    "author": "Maciej Krawiec",
+    "license": "MIT",
+    "peerDependencies": {
+        "@angular/core": ">=4.3.2",
+        "@angular/common": ">=4.3.2",
+        "raven-js": ">=3.17.0",
+        "rxjs": ">=5.4.2"
+    }
+}
