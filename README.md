@@ -26,7 +26,7 @@ import { RavenInterceptorModule } from 'ngx-raven-interceptor'
   imports: [
     BrowserModule,
     HttpClientModule,
-    RavenInterceptorModule // HERE
+    RavenInterceptorModule.forRoot() // HERE
   ],
   providers: [
     { provide: ErrorHandler, useClass: RavenErrorHandler }
@@ -35,3 +35,15 @@ import { RavenInterceptorModule } from 'ngx-raven-interceptor'
 })
 export class AppModule { }
 ```
+
+### Configuration
+
+You can provide config object to the `forRoot()` function to whitelist or blacklist specific error codes from sending Sentry events
+
+For example to log only 500, 502, 503 error codes:
+
+    RavenInterceptorModule.forRoot({ whitelistCodes: [500, 501, 503] })
+
+Or you can invert the logic and skip only certain error codes:
+
+    RavenInterceptorModule.forRoot({ blacklistCodes: [400] })

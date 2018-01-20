@@ -9,17 +9,21 @@ import {
   HttpErrorResponse
 } from '@angular/common/http'
 
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/observable/throw'
+import { ErrorFilter } from './error-filter'
 
 @Injectable()
 export class RavenInterceptor implements HttpInterceptor {
+  constructor(private responseFilter: ErrorFilter) {}
+
   public intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(req).catch((error) => {
-      if (error instanceof HttpErrorResponse) {
+      if (
+        error instanceof HttpErrorResponse &&
+        this.responseFilter.filter(error.status)
+      ) {
         this.handleErrorResponse(req, error)
       }
 
@@ -27,7 +31,10 @@ export class RavenInterceptor implements HttpInterceptor {
     })
   }
 
-  private handleErrorResponse(req: HttpRequest<any>, res: HttpErrorResponse): void {
+  private handleErrorResponse(
+    req: HttpRequest<any>,
+    res: HttpErrorResponse
+  ): void {
     const context = {
       request: {
         method: req.method,
@@ -35,8 +42,7 @@ export class RavenInterceptor implements HttpInterceptor {
       },
       response: {
         status: res.status,
-        message: res.message,
-        error: res.error
+        message: res.message
       }
     }
 
@@ -46,13 +52,16 @@ export class RavenInterceptor implements HttpInterceptor {
   private reportError(url: string, extra: any): void {
     const domain = this.getDomainName(url)
 
-    Raven.captureMessage(`HTTP ${extra.request.method} request to ${domain} failed.`, {
-      extra,
-      logger: 'ngx-raven-interceptor',
-      tags: {
-        'http-domain': domain
+    Raven.captureMessage(
+      `HTTP ${extra.request.method} request to ${domain} failed.`,
+      {
+        extra,
+        logger: 'ngx-raven-interceptor',
+        tags: {
+          'http-domain': domain
+        }
       }
-    })
+    )
   }
 
   private getDomainName(url: string): string {

@@ -1,0 +1,18 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "semicolon": [true, "never"],
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "typedef": [true, "call-signature", "parameter"],
+    "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "max-classes-per-file": false
+  },
+  "rulesDirectory": []
+}

@@ -1,1 +1,1 @@
-export * from './raven-interceptor.module'
+export * from './module'
