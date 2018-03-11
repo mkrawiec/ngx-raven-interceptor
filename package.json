@@ -1,10 +1,14 @@
 {
   "name": "ngx-raven-interceptor",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "Angular 4.3.0+ Http Error Interceptor for Sentry",
   "repository": "https://github.com/mkrawiec/ngx-raven-interceptor",
-  "main": "index.js",
+  "main": "dist/index",
+  "types": "dist/index",
   "scripts": {
+    "prepublishOnly": "npm run compile",
+    "clean": "rm -rf dist",
+    "compile": "npm run clean && tsc -p .",
     "ci": "run-s prettier-check lint test",
     "test": "jest",
     "lint": "tslint --project .",
@@ -46,7 +50,8 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.ts",
+    "testRegex": "(src/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js",
     "globals": {
       "ts-jest": {
         "tsConfigFile": "tsconfig.json"
